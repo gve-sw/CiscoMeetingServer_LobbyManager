@@ -1,0 +1,254 @@
+<!--
+    Copyright (c) 2020 Cisco and/or its affiliates.
+This software is licensed to you under the terms of the Cisco Sample
+Code License, Version 1.1 (the "License"). You may obtain a copy of the
+License at
+           https://developer.cisco.com/docs/licenses
+All use of the material herein must be in accordance with the terms of
+the License. All rights not expressly granted by the License are
+reserved. Unless required by applicable law or agreed to separately in
+writing, software distributed under the License is distributed on an "AS
+IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+or implied.
+-->
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="The design system sponsored by Cisco Brand">
+        <meta name="image" content="http://cisco-ui.cisco.com/assets/img/uikit-1200x630%402x.png">
+        <meta itemprop="name" content="Cisco UI Kit">
+        <meta itemprop="description" content="The design system sponsored by Cisco Brand">
+        <meta itemprop="image" content="http://cisco-ui.cisco.com">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Cisco UI Kit">
+        <meta name="twitter:description" content="The design system sponsored by Cisco Brand">
+        <meta property="og:title" content="Cisco UI Kit">
+        <meta property="og:description" content="The design system sponsored by Cisco Brand">
+        <meta property="og:image" content="https://cisco-ui.cisco.com/assets/img/uikit-1200x630%402x.png">
+        <meta property="og:url" content="http://cisco-ui.cisco.com">
+        <meta property="og:site_name" content="Cisco UI Kit">
+        <meta property="og:locale" content="en_US">
+        <meta property="og:type" content="website">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta name="application-name" content="Cisco UI Kit">
+        <meta name="msapplication-TileColor" content="#FFFFFF">
+        <meta name="msapplication-TileImage" content="img/mstile.png">
+        <meta name="msapplication-square70x70logo" content="img/mstile.png">
+        <meta name="msapplication-square150x150logo" content="img/mstile.png">
+        <meta name="msapplication-wide310x150logo" content="img/mstile.png">
+        <meta name="msapplication-square310x310logo" content="img/mstile.png">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+        <title>CMS Lobby Management</title>
+
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/cui-standard.min.css') }}">
+
+        <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous" ></script>
+        <!-- <script src="../public/js/styleguide.js"></script> -->
+
+         <script type=text/javascript>
+            $(document).ready(function() {
+
+                $("#submitLobbyParticipants").click(function(){
+
+                    var participantsToChange = []
+                    var checked = $(".participantCheckbox:checkbox:checked")
+                    $(".participantCheckbox").each(function(){
+                        var $this = $(this);
+                        if($this.is(":checked")){
+                            participantsToChange.push($this.attr("id"));
+                        }
+                    });
+                    $("#loader").append('<div class="loader" aria-label="Loading, please wait..."><div class="wrapper"><div class="wheel" style="width:20px;height:20px;"></div></div></div>')
+                    $.ajax({
+                        type: 'POST',
+                        url: "/acceptParticipants",
+                        data: JSON.stringify({"data":participantsToChange}),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(data){
+                            setInterval(location.reload(true), 0)
+                        }
+                    });
+                })
+
+                $("#callnames a").click(function(event){
+                    $("#loader1").append('<div class="loader" aria-label="Loading, please wait..."><div class="wrapper"><div class="wheel" style="width:20px;height:20px;"></div></div></div>')
+                })
+
+                $("#callnames a").each(function(){
+                    if ((window.location.pathname.indexOf($(this).attr('href'))) > -1) {
+                        $(this).css("fontWeight", "bold");
+                    }
+                })
+
+                $("#allParticipants").change(function(){
+                    if(this.checked){
+                        $(".participantCheckbox").prop('checked', $(this).prop('checked'))
+                    }else{
+                        $(".participantCheckbox").prop('checked', false)
+                    }
+                });
+
+             });
+        </script>
+
+
+
+    </head>
+    <body class="cui">
+        <nav class="header" id="styleguideheader" role="navigation">
+            <div class="container-fluid">
+                <div class="header-panels">
+                    <div class="header-panel hidden-md-down">
+                        <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                            <span class="icon-cisco"></span>
+                        </a>
+                        <h1 class="header__title">
+                            <span>Cisco Meetings Server - Lobby Management</span>
+                        </h1>
+                    </div>
+                    <div class="header-panel header-panel--center base-margin-left base-margin-right hidden-lg-up">
+                        <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                            <span class="icon-cisco"></span>
+                        </a>
+                    </div>
+                    <div class="header-panel header-panel--right hidden-md-down">
+                        <a href="/main" class="header-item" title="UI Kit Home"><span class="icon-home"></span></a>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content content--alt">
+            <div style = "text-align: center">
+                <br><br>
+                <h5>Manage Participants waiting in the Lobby</h5>
+                <h6>First, choose a call on the left and then select the participant(s) to accept from the lobby into the call.</h6>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+
+                    <!-- Left Rail -->
+                    <div class="col-xl-3">
+                        <div class="section">
+                            <!-- current calls -->
+                            <div class="panel panel--loose panel--raised base-margin-bottom">
+                                <div class="row">
+                                    <h2 class="subtitle" style="margin-left:10px;margin-bottom:-5px;">Active Call(s)</h2>
+                                    <p id="loader1" style="display:inline-block;margin:0;margin-left:10px;"></p>
+                                </div>
+                                <hr>
+
+                                <div class="section" >
+                                    {% for call in calls %}
+                                    <div class="row">
+                                        <div class="col-md-7 base-margin-bottom" id="callnames">
+                                            <a href="/call/{{call.id}}">{{call.name}}</a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Middle Rail -->
+                    <div class="col-xl-6">
+                        <div class="section" >
+
+                            <div class="section" id = "participantSection">
+                                   <!-- Participants in Lobby -->
+                            <div class="panel panel--loose panel--raised base-margin-bottom">
+                                <h2 class="subtitle">Participants in Lobby</h2>
+                                <hr>
+                                <div class = "row">
+                                    <div class="col-md-6 base-margin-bottom"><h6>Name</h6></div>
+                                    <div class = "col-md-3 base-margin-bottom"><h6>Select</h6></div>
+                                    <div class = "col-md-2 base-margin-bottom"><h6>Select All</h6></div>
+                                    <div class= "col-sm-1 base-margin-bottom"><label class="checkbox">
+                                        <input type="checkbox" class="focus" id = "allParticipants">
+                                        <span class="checkbox__input"></span>
+                                    </label></div>
+                                    <hr>
+                                </div>
+                                    {% for participant in participants_inlobby %}
+                                    <div class = "row">
+                                        <div class="col-md-6 base-margin-bottom">
+                                            <p>{{participant.name}}</p>
+                                        </div>
+                                        <div class="col-md-6 base-margin-bottom" id="participantCheck">
+                                            <label class="checkbox">
+                                                <input type="checkbox" class="focus participantCheckbox" id ="{{participant.name}}">
+                                                <span class="checkbox__input"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                                <!-- Participants in Meeting -->
+                            <div class="panel panel--loose panel--raised base-margin-bottom">
+                                <h2 class="subtitle">Participants in Call</h2>
+                                <hr>
+
+                                <div class="section">
+                                    {% for participant in participants_inmeeting %}
+                                    <div class = "row">
+                                        <div class="col-md-6 base-margin-bottom">
+                                            <p>{{participant.name}}</p>
+                                        </div>
+                                    </div>
+
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                                <div class="base-margin-bottom">
+                                    <div id="theme-colors"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- Right Rail -->
+                    <div class="col-xl-3">
+                        <div class="section" >
+                            <div class="panel panel--loose panel--raised base-margin-bottom">
+                                <h2 class="subtitle">Move from Lobby to Call</h2>
+                                <hr>
+                                <p>Accept selected participants from the lobby into the call:</p>
+                                <button class="btn" id ="submitLobbyParticipants">Accept</button>
+                                <p id="loader" style="display:inline-block;margin:0;margin-left:10px;"></p>
+                            </div>
+                            <pre id = "result"></pre>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+
+            <footer class="footer">
+                <div class="footer__links">
+                    <ul class="list list--inline">
+                        <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+                        <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+                        <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+                    </ul>
+                </div>
+            </footer>
+
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="The design system sponsored by Cisco Brand">
+    <meta name="image" content="http://cisco-ui.cisco.com/assets/img/uikit-1200x630%402x.png">
+    <meta itemprop="name" content="Cisco UI Kit">
+    <meta itemprop="description" content="The design system sponsored by Cisco Brand">
+    <meta itemprop="image" content="http://cisco-ui.cisco.com">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Cisco UI Kit">
+    <meta name="twitter:description" content="The design system sponsored by Cisco Brand">
+    <meta property="og:title" content="Cisco UI Kit">
+    <meta property="og:description" content="The design system sponsored by Cisco Brand">
+    <meta property="og:image" content="https://cisco-ui.cisco.com/assets/img/uikit-1200x630%402x.png">
+    <meta property="og:url" content="http://cisco-ui.cisco.com">
+    <meta property="og:site_name" content="Cisco UI Kit">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="application-name" content="Cisco UI Kit">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="img/mstile.png">
+    <meta name="msapplication-square70x70logo" content="img/mstile.png">
+    <meta name="msapplication-square150x150logo" content="img/mstile.png">
+    <meta name="msapplication-wide310x150logo" content="img/mstile.png">
+    <meta name="msapplication-square310x310logo" content="img/mstile.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>CMS Lobby Management</title>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/cui-standard.min.css') }}">
+
+</head>
+<body class="cui">
+    <nav class="header" id="styleguideheader" role="navigation">
+        <div class="container-fluid">
+            <div class="header-panels">
+                <div class="header-panel hidden-md-down">
+                    <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                        <span class="icon-cisco"></span>
+                    </a>
+                    <h1 class="header__title">
+                        <span>Cisco Meetings Server - Lobby Management</span>
+                    </h1>
+                </div>
+                <div class="header-panel header-panel--center base-margin-left base-margin-right hidden-lg-up">
+                    <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                        <span class="icon-cisco"></span>
+                    </a>
+                </div>
+                <div class="header-panel header-panel--right hidden-md-down">
+                    <a href="/" class="header-item" title="UI Kit Home"><span class="icon-home"></span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content content--alt" style = "text-align: center">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Left Rail -->
+                <div class="col-xl-3"></div>
+
+                <!-- Middle Rail -->
+                <div class="col-xl-6">
+                    <div class="section" >
+                        <div class="panel panel--loose panel--raised base-margin-bottom">
+                            <div class="container">
+                                Username: <input type="text" name="username" style="width:200px;"><br>
+                                Password: <input type="password" name="password" style="width:200px;"><br><br>
+                                <form action="{{ url_for('login') }}">
+                                    <button class="btn" id = "login" type="login" value="login">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="panel panel--loose panel--raised base-margin-bottom"id="hello" style="display:none"></div>
+                    </div>
+                </div>
+
+                <!-- Right Rail -->
+                <div class="col-xl-3"></div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer__links">
+                <ul class="list list--inline">
+                    <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+                    <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+                    <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+
+                    <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+                    <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+                    <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+                    <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
