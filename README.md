@@ -42,7 +42,7 @@ An application to manage participants waiting in the lobby of active calls that 
         
         username = '' # username to CMS
         password = '' # password to CMS
-        cms_ip = '' # IP address or DNS name of CMS
+        cms_ips = [''] # list of IP address or DNS name of CMS(s)
         port = '' # https port on CMS
 
 5. Set the following environment variable: `set FLASK_APP=main.py`.
